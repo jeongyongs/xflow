@@ -20,11 +20,7 @@ public class StdInNode extends Node implements Inputable {
      * @param scanner 입력을 받습니다.
      */
     public void scanToMessage(Scanner scanner) {
-        /**
-         * 유효시간 1초
-         */
         message = new Message(10000);
-        // message에 scanner넣을때마다 node들한테 뿌리니까 key로 분류할 필요 없다
         message.append("value", scanner.nextLine());
     }
     
