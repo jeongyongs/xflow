@@ -37,15 +37,17 @@ public class StdInNode extends Node implements Inputable {
     
     @Override
     public void run() {
-        Scanner scanner = new Scanner(System.in);
-
-        scanToMessage(scanner);
-       
-        for (Target target : targets.values()) {
-            try{
-                target.add(message);
-            } catch (InterruptedException e) {
-                System.out.println("노드로 message 못 보냄\n" +e);
+        while (!Thread.currentThread().isInterrupted()) {
+            Scanner scanner = new Scanner(System.in);
+            
+            scanToMessage(scanner);
+            
+            for (Target target : targets.values()) {
+                try{
+                    target.add(message);
+                } catch (InterruptedException e) {
+                    System.out.println("노드로 message 못 보냄\n" +e);
+                }
             }
         }
     }
