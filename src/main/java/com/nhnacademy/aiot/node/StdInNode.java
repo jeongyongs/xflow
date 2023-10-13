@@ -3,12 +3,16 @@ package com.nhnacademy.aiot.node;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 import com.nhnacademy.aiot.message.Message;
 
 public class StdInNode extends Node implements Inputable {
-    Map<Integer, Target> targets; 
-    Message message;
+    private Map<Integer, Target> targets; 
+    private Message message;
+    private final long LIFETIMEMILLIS = 10000;
+    private Scanner scanner;
+    private static Logger Log = Logger.getGlobal();
     
     public StdInNode() {
         targets = new HashMap<>();
@@ -20,7 +24,7 @@ public class StdInNode extends Node implements Inputable {
      * @param scanner 입력을 받습니다.
      */
     public void scanToMessage(Scanner scanner) {
-        message = new Message(10000);
+        message = new Message(LIFETIMEMILLIS);
         message.append("value", scanner.nextLine());
     }
     
@@ -38,7 +42,7 @@ public class StdInNode extends Node implements Inputable {
     @Override
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
-            Scanner scanner = new Scanner(System.in);
+            scanner = new Scanner(System.in);
             
             scanToMessage(scanner);
             
@@ -46,7 +50,7 @@ public class StdInNode extends Node implements Inputable {
                 try{
                     target.add(message);
                 } catch (InterruptedException e) {
-                    System.out.println("노드로 message 못 보냄\n" +e);
+                    Log.warning("노드로 message를 못 보냅니다.\n" + e);
                 }
             }
         }

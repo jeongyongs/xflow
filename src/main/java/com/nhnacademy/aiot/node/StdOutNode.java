@@ -27,7 +27,7 @@ public class StdOutNode extends Node implements Outputable {
             // pipe에서 messageg 가져와서 sysout으로 출력하기
             for (Pipe pipe : pipes) {
                 try {
-                    System.out.print(pipe.get());
+                    System.out.print(pipe.get().toString());
                 } catch (InterruptedException e) {
                     //
                 }
