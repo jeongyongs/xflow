@@ -11,7 +11,6 @@ public class StdInNode extends Node implements Inputable {
     private Map<Integer, Target> targets; 
     private Message message;
     private final long LIFETIMEMILLIS = 10000;
-    private Scanner scanner;
     private static Logger Log = Logger.getGlobal();
     
     public StdInNode() {
@@ -41,9 +40,9 @@ public class StdInNode extends Node implements Inputable {
     
     @Override
     public void run() {
+        Scanner scanner = new Scanner(System.in);
+        
         while (!Thread.currentThread().isInterrupted()) {
-            scanner = new Scanner(System.in);
-            
             scanToMessage(scanner);
             
             for (Target target : targets.values()) {
