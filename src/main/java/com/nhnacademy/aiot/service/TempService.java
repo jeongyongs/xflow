@@ -6,9 +6,9 @@ import com.nhnacademy.aiot.node.ResponseNode;
 import com.nhnacademy.aiot.pipe.Pipe;
 
 public class TempService implements Service {
-    private static final String hostname = "ems.nhnacademy.com";
-    private static final int port = 1880;
-    private static final String path = "/ep/temperature/24e124126c457594?count=1&st=1696772438&et="
+    private static final String HOSTNAME = "ems.nhnacademy.com";
+    private static final int PORT = 1880;
+    private static final String PATH = "/ep/temperature/24e124126c457594?count=1&st=1696772438&et="
             + (int) (System.currentTimeMillis() / 1000 - 30);
     private static final String RESPONSE = "response";
     private static final String TIME = "time";
@@ -20,7 +20,7 @@ public class TempService implements Service {
         Pipe functionInpipe = new Pipe();
         Pipe functionNodeOutPipe = new Pipe();
 
-        HttpNode httpNode = new HttpNode(hostname, port, path);
+        HttpNode httpNode = new HttpNode(HOSTNAME, PORT, PATH);
         httpNode.connectIn(0, inPipe);
         httpNode.connectOut(0, functionInpipe);
 
